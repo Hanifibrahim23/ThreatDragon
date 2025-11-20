@@ -263,11 +263,11 @@
                 },
                 {
                   "id": "dbacfd2b-437c-4dc7-b331-76788108aebd",
-                  "title": "S",
+                  "title": "Spoofing von Benutzerkonten im Login-System",
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Spoofing",
-                  "description": "Fake-Benutzer versucht, sich als legitimer Benutzer auszugeben",
+                  "description": "Ein Angreifer gibt sich als legitimer Benutzer aus, indem er gestohlene Zugangsdaten (E-Mail/Benutzername + Passwort) benutzt, um sich am Login-System anzumelden. Das System kann den Angreifer nicht vom echten Benutzer unterscheiden und gibt Zugriff auf das Konto.\n\nAngriffsvektor:\n\nAngreifer sammelt Zugangsdaten über Phishing, Malware oder aus geleakten Passwort-Datenbanken.\n\nDann startet er Credential-Stuffing oder Passwort-Rateversuche gegen das Login-System.\n\nWenn keine starke Passwort-Politik oder keine Rate-Limitierung existiert, gelingt der Login als fremder Benutzer.\n\nPassende CAPEC-ID:\n\nCAPEC-151 – Identity Spoofing (Annehmen einer fremden Identität mittels gestohlener/gefälschter Credentials). \n\n\nMITRE ATT&CK Taktik:\n\nTA0006 – Credential Access (Taktik: Angreifer versucht, Anmeldedaten zu stehlen und zu missbrauchen",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -279,7 +279,7 @@
               "isWebApplication": null,
               "handlesCardPayment": null,
               "threatFrequency": {
-                "spoofing": 3,
+                "spoofing": 4,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 0,
@@ -302,8 +302,8 @@
                 "text": "2-Faktor-Authe\nntifizierungsdi\nenst"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -400,15 +400,37 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "threats": [],
-              "hasOpenThreats": false,
+              "threats": [
+                {
+                  "id": "e6d1c8e2-1f56-47af-9a7a-b91ad6181b03",
+                  "title": "Überlastung des 2FA-Dienstes durch OTT-Flooding",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Denial of service",
+                  "description": "Ein Angreifer schickt massenhaft 2FA-Anfragen (z.B. automatisierte Login-Versuche, die jedes Mal einen neuen OTT auslösen), sodass der 2-Faktor-Authentifizierungsdienst überlastet wird. Legitimen Nutzern können dann keine OTTs mehr zugestellt werden; Logins schlagen fehl.\n\nAngriffsvektor:\n\nAngreifer skriptet oder bottet viele parallele Login-Versuche gegen das Frontend, jeweils mit neuer 2FA-Anforderung.\n\nWenn es kein Rate-Limiting / Captcha / IP-Throttling gibt, erzeugen diese Anfragen hohe Last auf 2FA-Service, Datenbank und OTT-Service.\n\nRessourcen (Threads, Speicher, API-Kontingente) werden erschöpft → legitime Requests werden verzögert oder abgewiesen.\n\nPassende CAPEC-ID:\n\nCAPEC-125 – Flooding (Ressourcenverbrauch durch sehr viele Anfragen, um einen Dienst lahmzulegen). \n\nMITRE ATT&CK Taktik:\n\nTA0040 – Impact – Angreifer stört die Verfügbarkeit von Diensten als Auswirkungs-Taktik (DoS).",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 107,
+                  "score": ""
+                }
+              ],
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "protocol": "",
               "isEncrypted": false,
               "isPublicNetwork": false,
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null,
-              "isWebApplication": null
+              "isWebApplication": null,
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 1,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -1175,7 +1197,22 @@
                 "x": 945,
                 "y": 169
               }
-            ]
+            ],
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove",
+                "vertices",
+                "source-arrowhead",
+                "target-arrowhead",
+                "boundary",
+                "button-remove",
+                "vertices",
+                "source-arrowhead",
+                "target-arrowhead"
+              ],
+              "name": null
+            }
           },
           {
             "shape": "trust-broundary-curve",
@@ -1757,7 +1794,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Wochenlichen\nReport",
+              "name": "Wochenlichen\nReport(Encrypted + Signed)",
               "description": "",
               "outOfScope": false,
               "isTrustBoundary": false,
@@ -1770,7 +1807,7 @@
               "threats": []
             },
             "labels": [
-              "Wochenlichen\nReport"
+              "Wochenlichen\nReport(Encrypted + Signed)"
             ],
             "id": "66106e76-08e1-4032-9fcf-ffe06ef8bf06",
             "source": {
@@ -1797,11 +1834,13 @@
                 "text": "Log-DB"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -1901,8 +1940,41 @@
               "storesCredentials": false,
               "isEncrypted": true,
               "isSigned": true,
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "0e50fa72-7dcc-4d9b-bccd-7673f2d66846",
+                  "title": "Manipulation oder Löschung von Log-Einträgen in der Log-DB",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Repudiation",
+                  "description": "Beschreibung:\nEin interner Angreifer oder ein Angreifer mit Zugang zur Log-DB verändert oder löscht Log-Einträge (z.B. Login-Versuche, OTT-Versand, Admin-Aktionen), sodass Vorfälle im Nachhinein nicht mehr eindeutig nachgewiesen werden können. Dadurch verliert Allsecure Beweise für Angriffe und Compliance-Nachweise.\n\nAngriffsvektor:\n\nAngreifer erlangt Datenbank-Zugriff (gestohlenes Admin-Konto, unsichere DB-Konfiguration, fehlende Zugriffskontrolle).\n\nEr führt UPDATE/DELETE-Befehle auf sicherheitsrelevanten Logs aus oder fügt gefälschte Einträge hinzu, um Spuren zu verwischen.\n\nBeim späteren Incident-Response fehlen die Log-Beweise oder sie sind unzuverlässig.\n\nPassende CAPEC-ID:\n\nCAPEC-93 – Log Injection / Tampering / Forging (Manipulation von Log-Dateien, um Accountability und Forensik zu umgehen). \n\n\nMITRE ATT&CK Taktik:\n\nTA0005 – Defense Evasion – speziell Techniken wie Indicator Removal / Disable or Modify Logs (z.B. T1070/T1562.008), um Erkennung zu verhindern. ",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 105,
+                  "score": ""
+                },
+                {
+                  "id": "eab24fb5-ba88-4ae5-a839-3c00832a409f",
+                  "title": "Offenlegung sensibler 2FA-Daten über Log-Einträge",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Information disclosure",
+                  "description": "Beschreibung:\nDer 2FA-Dienst oder die Log-DB speichert sensible Daten wie Telefonnummern, OTT-Tokens oder Session-IDs im Klartext in Logs. Erlangt ein Angreifer Zugriff auf diese Logs, kann er personenbezogene Daten und OTPs auslesen und so 2FA-Sicherheit aushebeln oder Datenschutz verletzen.\n\nAngriffsvektor:\n\nLogs werden auf einem schlecht geschützten Server gespeichert oder per File-Share zugänglich gemacht.\n\nEin Angreifer mit internem Zugriff (kompromittiertes Konto, unsichere Freigaben) liest Log-Dateien aus und extrahiert Telefonnummern und OTTs.\n\nEr nutzt die Informationen, um sich bei betroffenen Konten anzumelden oder Nutzer zu deanonymisieren.\n\nPassende CAPEC-ID:\n\nCAPEC-37 – Retrieve Embedded Sensitive Data (Auslesen eingebetteter sensibler Daten, z.B. in Dateien/Logs). \n\n\nMITRE ATT&CK Taktik:\n\nTA0010 – Exfiltration – der Angreifer stiehlt sensible Daten aus dem Netzwerk, hier konkret aus Logs.",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 106,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 1,
+                "informationDisclosure": 1,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -2166,8 +2238,8 @@
                 "text": "allsecure\nmobilie\nott\nservice"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2264,12 +2336,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "7254bf4f-249c-45f0-9714-70665487c74e",
+                  "title": "Manipulation der OTT-Nachricht im Allsecure Mobile OTT Service",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Tampering",
+                  "description": "STRIDE: Tampering (Datenmanipulation)\nDFD-Element: Allsecure Mobile Phone OTT Service (intern, im Allsecure-Vertrauensbereich)\nBedrohungsname: Manipulation der OTT-Nachricht im Allsecure Mobile OTT Service\n\nBeschreibung:\nEin Angreifer manipuliert den One-Time-Token (OTT), bevor er an den Benutzer gesendet wird (z.B. ersetzt den Code durch einen eigenen). So könnte der Angreifer sich mit dem von ihm kontrollierten OTT einloggen oder den legitimen Benutzer aussperren.\n\nAngriffsvektor:\n\nAngreifer kompromittiert den Allsecure Mobile OTT Service (z.B. durch Schwachstelle oder Fehlkonfiguration) oder erhält Schreibzugriff auf dessen interne Nachrichtenschlange.\n\nEr fängt OTT-Nachrichten ab und ändert Felder (OTP-Wert, Zielnummer).\n\nDie geänderten Tokens sehen für das 2FA-System und die Logs weiterhin „normal“ aus, sind aber vom Angreifer kontrolliert.\n\nPassende CAPEC-ID:\n\nCAPEC-384 – Application API Message Manipulation via Man-in-the-Middle (Manipulation von Nachrichteninhalten innerhalb einer Anwendung/ API-Kommunikation\n\nMITRE ATT&CK Taktik:\n\nTA0005 – Defense Evasion – der Angreifer manipuliert legitime Nachrichten, um Sicherheitskontrollen zu umgehen und die Integrität des OTT zu brechen.",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 104,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 2,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -2283,11 +2377,11 @@
             },
             "attrs": {
               "text": {
-                "text": "SIEM\n"
+                "text": "SIEM System\n"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2379,17 +2473,39 @@
             "zIndex": 15,
             "data": {
               "type": "tm.Process",
-              "name": "SIEM\n",
+              "name": "SIEM System\n",
               "description": "",
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "d3af7cf8-820e-4e8e-840d-7e7527e9226a",
+                  "title": "Privilegienerweiterung im SIEM-System durch Fehlkonfiguration",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Elevation of privilege",
+                  "description": "Das SIEM-System hat rollenbasierte Zugriffe (z.B. Analyst, Admin). Aufgrund einer Fehlkonfiguration oder Schwachstelle kann ein normaler Benutzer (z.B. Analyst) seine Rechte im SIEM auf Admin-Niveau erhöhen. Damit kann er Warnungen löschen, Regeln ändern oder Log-Quellen deaktivieren und so weitere Angriffe verbergen.\n\nAngriffsvektor:\n\nAngreifer erhält Zugang als normaler SIEM-Benutzer (z.B. kompromittiertes Konto eines Mitarbeiters).\n\nEr nutzt eine Fehlkonfiguration (z.B. zu breite RBAC-Rollen) oder eine Software-Schwachstelle im SIEM-Webinterface, um Admin-Funktionen auszuführen.\n\nDanach kann er Alarme deaktivieren, Filter so ändern, dass seine Aktivitäten nicht mehr auffallen, und ggf. auf andere Systeme mit höherem Vertrauen zugreifen.\n\nPassende CAPEC-ID:\n\nCAPEC-233 – Privilege Escalation (Ausnutzen einer Schwachstelle zur Ausweitung von Berechtigungen). \n\n\nMITRE ATT&CK Taktik:\n\nTA0004 – Privilege Escalation – der Angreifer versucht, höhere Berechtigungen im System zu erlangen, z.B. SIEM-Adminrechte. \nMITRE ATT&CK",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 108,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 1
+              }
             }
           },
           {
@@ -2519,7 +2635,7 @@
     ],
     "reviewer": "Georg Neugebauer",
     "diagramTop": 10,
-    "threatTop": 103
+    "threatTop": 108
   },
   "version": "2.5.0"
 }
