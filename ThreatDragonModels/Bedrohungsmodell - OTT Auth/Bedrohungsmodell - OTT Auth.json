@@ -288,6 +288,13 @@
                 "elevationOfPrivilege": 0
               },
               "handlesGoodsOrServices": null
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
